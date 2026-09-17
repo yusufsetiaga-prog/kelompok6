@@ -1,0 +1,418 @@
+<<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelompok 4 - Perubahan Iklim & Cuaca</title>
+    <style>
+        /* --- RESET & FONTS --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f172a, #1e3a8a, #064e3b);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: #fff;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- FLOATING BACKGROUND ELEMENTS --- */
+        .clouds {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            filter: blur(20px);
+            animation: floatClouds 20s linear infinite;
+        }
+
+        .cloud1 { width: 300px; height: 300px; top: 10%; left: -10%; animation-duration: 25s; }
+        .cloud2 { width: 400px; height: 400px; top: 50%; right: -15%; animation-duration: 35s; animation-direction: reverse; }
+        .cloud3 { width: 200px; height: 200px; bottom: 10%; left: 20%; animation-duration: 20s; }
+
+        @keyframes floatClouds {
+            0% { transform: translateY(0) translateX(0); }
+            50% { transform: translateY(-30px) translateX(30px); }
+            100% { transform: translateY(0) translateX(0); }
+        }
+
+        /* --- HEADER --- */
+        header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            position: relative;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            background: linear-gradient(to right, #4ade80, #38bdf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            text-shadow: 0 0 30px rgba(74, 222, 128, 0.3);
+            animation: pulseGlow 3s infinite alternate;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            color: #94a3b8;
+            letter-spacing: 2px;
+        }
+
+        @keyframes pulseGlow {
+            0% { text-shadow: 0 0 20px rgba(74, 222, 128, 0.2); }
+            100% { text-shadow: 0 0 40px rgba(56, 189, 248, 0.6); }
+        }
+
+        /* --- MAIN CONTENT (INFOGRAFIS) --- */
+        .main-content {
+            max-width: 900px;
+            margin: 0 auto 80px;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .infographic-container {
+            position: relative;
+            display: inline-block;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            transition: all 0.5s ease;
+            animation: floatMain 6s ease-in-out infinite;
+        }
+
+        .infographic-container:hover {
+            transform: scale(1.03) translateY(-10px);
+            box-shadow: 0 30px 60px rgba(56, 189, 248, 0.4);
+        }
+
+        .infographic-container img {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            display: block;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+        }
+
+        @keyframes floatMain {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* --- TEAM SECTION --- */
+        .team-section {
+            padding: 40px 20px 80px;
+            text-align: center;
+        }
+
+        .team-title {
+            font-size: 2rem;
+            color: #fff;
+            margin-bottom: 40px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .team-title::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            background: linear-gradient(to right, #4ade80, #38bdf8);
+            bottom: -10px;
+            left: 25%;
+            border-radius: 2px;
+        }
+
+        .team-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* --- MEMBER CARDS (FLOATING) --- */
+        .member-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 20px;
+            width: 220px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: floatCard 5s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .member-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: 0.5s;
+        }
+
+        .member-card:hover::before {
+            left: 100%;
+        }
+
+        .member-card:hover {
+            transform: translateY(-15px) scale(1.05);
+            border-color: rgba(74, 222, 128, 0.5);
+            box-shadow: 0 20px 40px rgba(74, 222, 128, 0.2);
+        }
+
+        /* Delay untuk efek mengambang yang berbeda */
+        .member-card:nth-child(1) { animation-delay: 0s; }
+        .member-card:nth-child(2) { animation-delay: 0.5s; }
+        .member-card:nth-child(3) { animation-delay: 1s; }
+        .member-card:nth-child(4) { animation-delay: 1.5s; }
+
+        @keyframes floatCard {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .member-img-wrapper {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            padding: 4px;
+            background: linear-gradient(135deg, #4ade80, #38bdf8);
+            margin-bottom: 15px;
+            box-shadow: 0 0 20px rgba(74, 222, 128, 0.3);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .member-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            transition: transform 0.4s ease;
+        }
+
+        .member-card:hover .member-img-wrapper img {
+            transform: scale(1.1);
+        }
+
+        /* Placeholder untuk anggota tanpa foto */
+        .member-img-placeholder {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1e3a8a, #064e3b);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #4ade80;
+        }
+
+        .member-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .member-role {
+            font-size: 0.85rem;
+            color: #4ade80;
+            background: rgba(74, 222, 128, 0.1);
+            padding: 4px 15px;
+            border-radius: 20px;
+            border: 1px solid rgba(74, 222, 128, 0.3);
+            letter-spacing: 1px;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        footer span {
+            color: #4ade80;
+            font-weight: bold;
+        }
+
+        /* --- INTERACTIVE ANIMATION FOR SCROLL --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            header h1 { font-size: 2rem; }
+            .member-card { width: 160px; padding: 15px; }
+            .member-img-wrapper { width: 100px; height: 100px; }
+            .member-name { font-size: 0.9rem; }
+            .member-role { font-size: 0.7rem; padding: 3px 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background Animasi -->
+    <div class="clouds">
+        <div class="cloud cloud1"></div>
+        <div class="cloud cloud2"></div>
+        <div class="cloud cloud3"></div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <h1>Kelompok 4</h1>
+        <p>Perubahan Iklim & Cuaca</p>
+    </header>
+
+    <!-- Konten Utama (Infografis) -->
+    <section class="main-content reveal">
+        <div class="infographic-container" title="Klik untuk memperbesar (zoom in)">
+            <!-- Ganti src dengan nama file gambar Anda -->
+            <img src="infografis.jpg" alt="Infografis Perubahan Iklim dan Cuaca" id="mainImage">
+        </div>
+    </section>
+
+    <!-- Profil Anggota -->
+    <section class="team-section">
+        <h2 class="team-title reveal">Anggota Kelompok</h2>
+        <div class="team-grid reveal">
+            
+            <!-- Anggota 1: Berilan Mei Zahra (Placeholder) -->
+            <div class="member-card">
+                <div class="member-img-wrapper">
+                <img src="berlian.jpg" alt="Berilan Mei Zahra">
+                </div>
+                <div class="member-name">Berilan Mei Zahra</div>
+                <div class="member-role">Anggota</div>
+            </div>
+
+            <!-- Anggota 2: Zihan Aurora S. -->
+            <div class="member-card">
+                <div class="member-img-wrapper">
+                    <!-- Ganti src dengan foto Zihan -->
+                    <img src="zihan.jpg" alt="Zihan Aurora S.">
+                </div>
+                <div class="member-name">Zihan Aurora S.</div>
+                <div class="member-role">Anggota</div>
+            </div>
+
+            <!-- Anggota 3: M. Nizam -->
+            <div class="member-card">
+                <div class="member-img-wrapper">
+                    <!-- Ganti src dengan foto Nizam -->
+                    <img src="nizam.jpg" alt="M. Nizam">
+                </div>
+                <div class="member-name">M. Nizam</div>
+                <div class="member-role">Anggota</div>
+            </div>
+
+            <!-- Anggota 4: M. Yusuf Setiaga -->
+            <div class="member-card">
+                <div class="member-img-wrapper">
+                    <!-- Ganti src dengan foto Yusuf -->
+                    <img src="yusuf.jpg" alt="M. Yusuf Setiaga">
+                </div>
+                <div class="member-name">M. Yusuf Setiaga</div>
+                <div class="member-role">Anggota</div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 <span>Kelompok 4</span>. Tugas Perubahan Iklim dan Cuaca.</p>
+    </footer>
+
+    <!-- Script Interaktif -->
+    <script>
+        // 1. Animasi Scroll Reveal
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal(); // Panggil saat pertama kali dimuat
+
+        // 2. Interaksi Klik Gambar Utama (Zoom)
+        const mainImage = document.getElementById('mainImage');
+        let isZoomed = false;
+        
+        mainImage.parentElement.addEventListener('click', () => {
+            isZoomed = !isZoomed;
+            if (isZoomed) {
+                mainImage.parentElement.style.transform = "scale(1.5)";
+                mainImage.parentElement.style.zIndex = "999";
+                mainImage.parentElement.style.cursor = "zoom-out";
+                // Scroll ke gambar saat di-zoom
+                mainImage.parentElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } else {
+                mainImage.parentElement.style.transform = "scale(1) translateY(0)";
+                mainImage.parentElement.style.zIndex = "1";
+                mainImage.parentElement.style.cursor = "zoom-in";
+            }
+        });
+    </script>
+</body>
+</html>
